@@ -10,11 +10,10 @@ namespace Library
     class Program
     {
         SqlConnection conn = null;
-
         public Program()
         {
             conn = new SqlConnection();
-            conn.ConnectionString = @"Data Source=(localdb)\v11.0; Initial Catalog=Library; Integrated Security=SSPI;";
+            conn.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Library;Integrated Security=True;";
             // или
             //SqlConnection conn = null;
             //conn = new SqlConnection(@"Data Source=(localdb)\v11.0; Initial Catalog=Library; Integrated Security=SSPI;");
