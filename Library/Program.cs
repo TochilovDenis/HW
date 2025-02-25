@@ -62,11 +62,24 @@ namespace Library
                 SqlCommand cmd = new SqlCommand("select * from Authors", conn);
                 //выполнить запрос select, сохранив возвращенный результат
                 rdr = cmd.ExecuteReader();
+                int line = 0; // счетчик строк
                 //извлечь полученные строки
                 while (rdr.Read())
                 {
-                    Console.WriteLine(rdr[1] + " " + rdr[2]);
+                    //формируем шапку таблицы перед выводом первой строки
+                    if (line == 0)
+                    {
+                        //цикл по числу прочитанных полей
+                        for(int i = 0; i < rdr.FieldCount; i++)
+                        {
+                            //вывести в консольное окно имена полей
+                            Console.Write(rdr.GetName(i).ToString() + " ");
+                        }
+                    }
+                    line++;
+                    Console.WriteLine("\n" + rdr[0] + (" ") + rdr[1] + " " + rdr[2]);
                 }
+                Console.WriteLine("\nОбработано записей: " + line.ToString());
             }
             finally
             {
