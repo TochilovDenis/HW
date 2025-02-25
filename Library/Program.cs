@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,7 @@ namespace Library
         public Program()
         {
             conn = new SqlConnection();
-            conn.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Library;Integrated Security=True;";
-            // или
-            //SqlConnection conn = null;
-            //conn = new SqlConnection(@"Data Source=(localdb)\v11.0; Initial Catalog=Library; Integrated Security=SSPI;");
+            conn.ConnectionString = ConfigurationManager.ConnectionStrings["MyConnString"].ConnectionString;
         }
 
         static void Main(string[] args)
