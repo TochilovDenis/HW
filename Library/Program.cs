@@ -9,7 +9,7 @@ namespace Library
 {
     class Program
     {
-        static void Main(string[] args)
+        public Program()
         {
             SqlConnection conn = null;
             conn = new SqlConnection();
@@ -17,6 +17,10 @@ namespace Library
             // или
             //SqlConnection conn = null;
             //conn = new SqlConnection(@"Data Source=(localdb)\v11.0; Initial Catalog=Library; Integrated Security=SSPI;");
+        }
+        static void Main(string[] args)
+        {
+            
         }
     }
 }
