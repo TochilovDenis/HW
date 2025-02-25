@@ -24,6 +24,8 @@ namespace Library
             Program pr = new Program();
             pr.InsertQuery();
         }
+
+        // Создание и выполнение запросов (DbCommand)
         public void InsertQuery()
         {
             try
@@ -33,11 +35,9 @@ namespace Library
                 //подготовить запрос insert в переменной типа string
                 string insertString = @"insert into Authors (FirstName, LastName) values ('Roger', 'Zelazny')";
                 //создать объект command,инициализировав оба свойства
-                SqlCommand cmd =
-                new SqlCommand(insertString, conn);
-
+                SqlCommand cmd = new SqlCommand(insertString, conn);
                 //выполнить запрос, занесенный в объект command
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();  // преднзначен для выполнения запросов insert, update и delete Эт
             }
             finally
             {
@@ -48,5 +48,5 @@ namespace Library
                 }
             }
         }
-    }
- }
+    } 
+}
