@@ -9,9 +9,10 @@ namespace Library
 {
     class Program
     {
+        SqlConnection conn = null;
+
         public Program()
         {
-            SqlConnection conn = null;
             conn = new SqlConnection();
             conn.ConnectionString = @"Data Source=(localdb)\v11.0; Initial Catalog=Library; Integrated Security=SSPI;";
             // или
@@ -21,7 +22,32 @@ namespace Library
 
         static void Main(string[] args)
         {
+            Program pr = new Program();
+            pr.InsertQuery();
+        }
+        public void InsertQuery()
+        {
+            try
+            {
+                //открыть соединение
+                conn.Open();
+                //подготовить запрос insert в переменной типа string
+                string insertString = @"insert into Authors (FirstName, LastName) values ('Roger', 'Zelazny')";
+                //создать объект command,инициализировав оба свойства
+                SqlCommand cmd =
+                new SqlCommand(insertString, conn);
 
+                //выполнить запрос, занесенный в объект command
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                // закрыть соединение
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
         }
     }
-}
+ }
