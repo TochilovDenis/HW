@@ -62,24 +62,51 @@ namespace Library
                 SqlCommand cmd = new SqlCommand("select * from Authors", conn);
                 //выполнить запрос select, сохранив возвращенный результат
                 rdr = cmd.ExecuteReader();
-                int line = 0; // счетчик строк
-                //извлечь полученные строки
+                // Получаем имена полей и их длины
+                int[] columnWidths = new int[rdr.FieldCount];
+                for (int i = 0; i < rdr.FieldCount; i++)
+                {
+                    columnWidths[i] = rdr.GetName(i).Length;
+                }
+
+                // Читаем данные и обновляем максимальные длины
+                List<string[]> rows = new List<string[]>();
                 while (rdr.Read())
                 {
-                    //формируем шапку таблицы перед выводом первой строки
-                    if (line == 0)
+                    string[] row = new string[rdr.FieldCount];
+                    for (int i = 0; i < rdr.FieldCount; i++)
                     {
-                        //цикл по числу прочитанных полей
-                        for(int i = 0; i < rdr.FieldCount; i++)
-                        {
-                            //вывести в консольное окно имена полей
-                            Console.Write(rdr.GetName(i).ToString() + " ");
-                        }
+                        row[i] = rdr[i].ToString();
+                        columnWidths[i] = Math.Max(columnWidths[i], row[i].Length);
                     }
-                    line++;
-                    Console.WriteLine("\n" + rdr[0] + (" ") + rdr[1] + " " + rdr[2]);
+                    rows.Add(row);
                 }
-                Console.WriteLine("\nОбработано записей: " + line.ToString());
+
+                // Выводим шапку
+                for (int i = 0; i < rdr.FieldCount; i++)
+                {
+                    Console.Write(rdr.GetName(i).PadRight(columnWidths[i] + 2));
+                }
+                Console.WriteLine();
+
+                // Выводим разделитель
+                for (int i = 0; i < rdr.FieldCount; i++)
+                {
+                    Console.Write(new string('-', columnWidths[i] + 2));
+                }
+                Console.WriteLine();
+
+                // Выводим данные
+                foreach (string[] row in rows)
+                {
+                    for (int i = 0; i < row.Length; i++)
+                    {
+                        Console.Write(row[i].PadRight(columnWidths[i] + 2));
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("\nОбработано записей: " + rows.Count);
             }
             finally
             {
