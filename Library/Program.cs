@@ -23,6 +23,7 @@ namespace Library
         {
             Program pr = new Program();
             pr.InsertQuery();
+            pr.ReadData();
         }
 
         // Создание и выполнение запросов (DbCommand)
