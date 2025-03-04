@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Library
             Program pr = new Program();
             pr.InsertQuery();
             pr.ReadData();
+            pr.ExecStoredProcedure();
         }
 
         // Создание и выполнение запросов (DbCommand)
@@ -122,6 +124,23 @@ namespace Library
                     conn.Close();
                 }
             }
+        }
+
+        public void ExecStoredProcedure()
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("getBooksNumber", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@AuthorId", System.Data.
+            SqlDbType.Int).Value = 1;
+            SqlParameter outputParam = new SqlParameter("@BookCount", System.Data.SqlDbType.Int);
+            outputParam.Direction = ParameterDirection.
+            Output;
+            //outputParam.Value = 0; //заполнять Value не надо!
+            cmd.Parameters.Add(outputParam);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine(cmd.Parameters["@BookCount"].
+            Value.ToString());
         }
     } 
 }
