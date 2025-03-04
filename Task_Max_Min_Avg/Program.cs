@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Task_Max_Min_Avg
@@ -38,6 +36,7 @@ namespace Task_Max_Min_Avg
             Console.WriteLine($"Сумма:            {CalculateSum(numbers)}");
         }
 
+        // поиск минимум
         static int FindMin(int[] array)
         {
             int min = array[0];
@@ -49,6 +48,7 @@ namespace Task_Max_Min_Avg
             return min;
         }
 
+        // поиск максимум
         static int FindMax(int[] array)
         {
             int max = array[0];
@@ -60,11 +60,13 @@ namespace Task_Max_Min_Avg
             return max;
         }
 
+        // вычисление среднего значения
         static double CalculateAverage(int[] array)
         {
             return (double)array.Sum() / array.Length;
         }
 
+        // вычисление суммы
         static int CalculateSum(int[] array)
         {
             int sum = 0;
