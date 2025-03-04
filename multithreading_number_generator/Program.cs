@@ -7,29 +7,60 @@ using System.Threading.Tasks;
 
 namespace multithreading_number_generator
 {
-    // Класс для хранения данных и управления событиями
-    public class DataManager
+    class Program
     {
-        private int[] numbers;
-        private bool isGenerationComplete = false;
-        private readonly object locker = new object();
-        private readonly ManualResetEventSlim generationComplete = new ManualResetEventSlim(false);
+        // Массив для хранения чисел
+        private static int[] numbers = new int[1000];
 
-        // Событие, которое срабатывает при завершении генерации
-        public event EventHandler GenerationComplete;
+        // Событие для сигнала о завершении генерации
+        private static event EventHandler GenerationComplete;
 
-        public DataManager()
+        // Мьютекс для синхронизации доступа к общим ресурсам
+        private static readonly object locker = new object();
+
+        // Флаг завершения генерации
+        private static bool isGenerationComplete = false;
+
+        static void Main()
         {
-            numbers = new int[1000];
+            // Создаем поток для генерации чисел
+            Thread generationThread = new Thread(GenerateNumbers);
+
+            // Создаем три потока для анализа данных
+            Thread maxThread = new Thread(FindMax);
+            Thread minThread = new Thread(FindMin);
+            Thread avgThread = new Thread(CalculateAverage);
+
+            // Подписываемся на событие завершения генерации
+            GenerationComplete += (sender, e) =>
+            {
+                Console.WriteLine("Генерация завершена. Начинаем анализ данных...");
+                maxThread.Start();
+                minThread.Start();
+                avgThread.Start();
+            };
+
+            // Запускаем поток генерации
+            Console.WriteLine("Начало генерации чисел...");
+            generationThread.Start();
+
+            // Ожидаем завершения всех потоков
+            generationThread.Join();
+            maxThread.Join();
+            minThread.Join();
+            avgThread.Join();
+
+            Console.WriteLine("Все операции завершены. Нажмите любую клавишу для выхода...");
+            Console.ReadKey();
         }
 
         // Метод для генерации чисел
-        public void GenerateNumbers()
+        static void GenerateNumbers()
         {
             Random random = new Random();
             for (int i = 0; i < 1000; i++)
             {
-                numbers[i] = random.Next(0, 5001); // 5001 для включения 5000
+                numbers[i] = random.Next(0, 5001);
             }
 
             lock (locker)
@@ -37,12 +68,12 @@ namespace multithreading_number_generator
                 isGenerationComplete = true;
             }
 
-            generationComplete.Set();
-            GenerationComplete.Invoke(this, EventArgs.Empty);
+            // Вызываем событие о завершении генерации
+            GenerationComplete?.Invoke(null, EventArgs.Empty);
         }
 
-        // Методы для анализа данных
-        public int FindMax()
+        // Метод для поиска максимума
+        static void FindMax()
         {
             int max = int.MinValue;
             foreach (var number in numbers)
@@ -50,10 +81,11 @@ namespace multithreading_number_generator
                 if (number > max)
                     max = number;
             }
-            return max;
+            Console.WriteLine($"Максимальное значение: {max}");
         }
 
-        public int FindMin()
+        // Метод для поиска минимума
+        static void FindMin()
         {
             int min = int.MaxValue;
             foreach (var number in numbers)
@@ -61,64 +93,19 @@ namespace multithreading_number_generator
                 if (number < min)
                     min = number;
             }
-            return min;
+            Console.WriteLine($"Минимальное значение: {min}");
         }
 
-        public double CalculateAverage()
+        // Метод для вычисления среднего значения
+        static void CalculateAverage()
         {
             long sum = 0;
             foreach (var number in numbers)
             {
                 sum += number;
             }
-            return (double)sum / numbers.Length;
-        }
-
-        // Метод для ожидания завершения генерации
-        public void WaitForGeneration()
-        {
-            generationComplete.Wait();
-        }
-    }
-
-    class Program
-    {
-        static void Main()
-        {
-            DataManager dataManager = new DataManager();
-
-            // Создаем и запускаем поток для генерации чисел
-            Task generationTask = Task.Run(() =>
-            {
-                Console.WriteLine("Начало генерации чисел...");
-                dataManager.GenerateNumbers();
-                Console.WriteLine("Генерация завершена!");
-            });
-
-            // Создаем потоки для анализа данных
-            Task maxTask = Task.Run(() =>
-            {
-                dataManager.WaitForGeneration();
-                int max = dataManager.FindMax();
-                Console.WriteLine($"Максимальное значение: {max}");
-            });
-
-            Task minTask = Task.Run(() =>
-            {
-                dataManager.WaitForGeneration();
-                int min = dataManager.FindMin();
-                Console.WriteLine($"Минимальное значение: {min}");
-            });
-
-            Task avgTask = Task.Run(() =>
-            {
-                dataManager.WaitForGeneration();
-                double avg = dataManager.CalculateAverage();
-                Console.WriteLine($"Среднее значение: {avg:F2}");
-            });
-
-            // Ожидаем завершения всех задач
-            Task.WaitAll(generationTask, maxTask, minTask, avgTask);
+            double average = (double)sum / numbers.Length;
+            Console.WriteLine($"Среднее значение: {average:F2}");
         }
     }
 }
