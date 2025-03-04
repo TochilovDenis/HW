@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Number_Parallel
 {
+    // Параллельный поиск простых чисел с Parallel.For
     class PrimeFinderParallel
     {
         public static void FindPrimesParallel(int maxNumber)
