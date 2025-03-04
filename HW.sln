@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionProcessor", "Coll
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionTimeGame", "ReactionTimeGame\ReactionTimeGame.csproj", "{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainForm", "MainForm\MainForm.csproj", "{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
