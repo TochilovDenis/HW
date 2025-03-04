@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionProcessor", "Coll
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionTimeGame", "ReactionTimeGame\ReactionTimeGame.csproj", "{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainForm", "MainForm\MainForm.csproj", "{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_Max_Min_Avg", "Task_Max_Min_Avg\Task_Max_Min_Avg.csproj", "{9978F4FE-16C6-46B2-A49A-CA72D7D3CA1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB6610B-83F2-46B7-BCE4-4F877B986BC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56A865F5-AA59-431B-B14F-8A5AF5B95C6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9978F4FE-16C6-46B2-A49A-CA72D7D3CA1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9978F4FE-16C6-46B2-A49A-CA72D7D3CA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9978F4FE-16C6-46B2-A49A-CA72D7D3CA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9978F4FE-16C6-46B2-A49A-CA72D7D3CA1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
